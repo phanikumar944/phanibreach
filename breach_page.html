@@ -13,7 +13,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)), url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac');
+      background-size: cover;
+      background-position: center;
       color: #fff;
       padding: 24px;
     }
@@ -109,6 +111,71 @@
       color: #94a3b8;
       text-align: center;
     }
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup-box {
+      position: relative;
+      width: min(760px, 95vw);
+      background: #1e1b4b;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.12);
+      animation: popIn 0.25s ease;
+    }
+
+    .popup-box img {
+      width: 100%;
+      display: block;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.8);
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .popup-caption {
+      padding: 16px 20px 22px;
+      text-align: center;
+      font-size: 1rem;
+      color: #e2e8f0;
+      background: linear-gradient(180deg, rgba(30,27,75,0.95), rgba(49,46,129,0.98));
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -129,10 +196,20 @@
     <div class="footer">Powered by Phani Kumar | IR Manager | ESF Labs</div>
   </div>
 
+  <div id="aprilPopup" class="popup-overlay">
+    <div class="popup-box">
+      <button id="closePopup" class="popup-close">×</button>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwAAAAJYCAIAAACj7m6NAAEAAElEQVR4nOz9eZgcVZ3v/X9V1b16p6enZ2E2kZ2ECWQXlB0BEVBNQFAx3l4QRBAdxXGQhQWFxM1wVhAX1HcE1MUBQZCdQXbBKsIsc2dkJmZ6Z3Z7p7q2q7q9fn9UjP1Vb6qT1VX9V7fr5nM6ep0nq6qT3f6+7/3e5z1X3eV4l8m+fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPn/+v8B8v7u+VQ0bqQAAAABJRU5ErkJggg==" alt="Happy April Fool" />
+      <div class="popup-caption">🤡 Happy April Fool, boss. You really typed your name and trusted the scanner 😄</div>
+    </div>
+  </div>
+
   <script>
     const form = document.getElementById('prankForm');
     const nameInput = document.getElementById('nameInput');
     const result = document.getElementById('result');
+    const aprilPopup = document.getElementById('aprilPopup');
+    const closePopup = document.getElementById('closePopup');
 
     const messages = [
       (name) => `🚨 ${name}, we detected your data in 17 underground sources… including your friend's WhatsApp gossip group.`,
@@ -182,6 +259,18 @@
         <br><br>
         🤡 Surprise… Happy April Fool 😄
       `;
+
+      aprilPopup.classList.add('show');
+    });
+
+    closePopup.addEventListener('click', function () {
+      aprilPopup.classList.remove('show');
+    });
+
+    aprilPopup.addEventListener('click', function (e) {
+      if (e.target === aprilPopup) {
+        aprilPopup.classList.remove('show');
+      }
     });
   </script>
 </body>
