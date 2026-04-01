@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Public Breach Checker</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      color: #fff;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    p.subtitle {
+      margin: 0 0 24px;
+      color: #cbd5e1;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #e2e8f0;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input::placeholder { color: #cbd5e1; }
+
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 12px;
+      background: #22c55e;
+      color: #06240f;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: none;
+      line-height: 1.7;
+    }
+
+    .result.show { display: block; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f87171;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Public Breach Checker</h1>
+    <p class="subtitle">
+      Enter your name to check whether your public details were exposed across multiple underground sources.
+    </p>
+
+    <form id="prankForm">
+      <label for="nameInput">Your Name</label>
+      <input id="nameInput" type="text" placeholder="Enter your name" required />
+      <button type="submit">Scan My Data</button>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <div class="footer">Powered by Phani Kumar | IR Manager | ESF Labs</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('prankForm');
+    const nameInput = document.getElementById('nameInput');
+    const result = document.getElementById('result');
+
+    const messages = [
+      (name) => `🚨 ${name}, we detected your data in 17 underground sources… including your friend's WhatsApp gossip group.`,
+      (name) => `⚠️ ${name}, critical exposure found: your \"I'll start gym from Monday\" data has been leaked globally.`,
+      (name) => `📢 ${name}, breach confirmed. Your late-night scrolling history is now classified as public entertainment.`,
+      (name) => `🕵️ ${name}, we found sensitive data: your password might be \"123456\" or \"${name}@123\" 😏`,
+      (name) => `😂 ${name}, your secret data is out: favorite snacks, random mood swings, and \"5 mins more sleep\" habits.`,
+      (name) => `🚨 ${name}, major breach detected. Your relatives now know you say \"I'm on the way\" while still in bed.`,
+      (name) => `📂 ${name}, leaked records show 83 unfinished plans, 19 fake diet starts, and 1 legendary laziness certificate.`,
+      (name) => `😎 ${name}, your confidential file reveals you open the fridge just to inspect the situation.`,
+      (name) => `📡 ${name}, dark web sources confirm your biggest weakness: saying \"last reel\" and watching 47 more.`,
+      (name) => `🛑 ${name}, sensitive data exposed: your screen time, snack count, and dramatic \"I will sleep early today\" promises.`,
+      (name) => `💀 ${name}, urgent alert: your search history includes \"how to become rich without working much\".`,
+      (name) => `🍕 ${name}, breach report says your loyalty to biryani, pizza, and midnight cravings is now public knowledge.`,
+      (name) => `🤖 ${name}, our engine found proof that you click \"Remind me tomorrow\" on every important task.`,
+      (name) => `📣 ${name}, your hidden records were leaked: 12 ignored alarms, 6 unfinished web series, and unlimited excuses.`,
+      (name) => `😏 ${name}, classified data shows you type long passwords but still forget them in 8 seconds.`,
+      (name) => `🚓 ${name}, authorities have been informed that you say \"5 minutes\" when you actually mean 45 minutes.`,
+      (name) => `🎯 ${name}, top secret exposure found: you act busy when someone enters the room, but were just watching memes.`,
+      (name) => `🧠 ${name}, leaked intelligence confirms 90% of your motivation arrives at night and disappears by morning.`,
+      (name) => `📉 ${name}, your productivity data has been compromised. Peak activity: opening tabs. Completion rate: emotional support only.`,
+      (name) => `☕ ${name}, severe breach detected. Your private dependency on tea, coffee, and unnecessary overthinking is now public.`
+    ];
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+
+      if (!name) {
+        result.className = 'result show';
+        result.innerHTML = '<div class="tag">Input Needed</div>Please enter your name first.';
+        return;
+      }
+
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)](name);
+
+      const platforms = `Facebook, Instagram, X (Twitter), LinkedIn`;
+
+      result.className = 'result show';
+      result.innerHTML = `
+        <div class="tag">Critical Exposure Found</div>
+        <strong>${randomMessage}</strong>
+        <br><br>
+        <span style="color:#facc15;">Leaked Platforms:</span> ${platforms}
+        <br><br>
+        😏 ${name}… em pani pata ledha? Name enter cheyamante chessthava?
+        <br><br>
+        🤡 Surprise… Happy April Fool 😄
+      `;
+    });
+  </script>
+</body>
+</html>
