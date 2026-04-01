@@ -200,7 +200,7 @@
     <div class="popup-box">
       <button id="closePopup" class="popup-close">×</button>
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwAAAAJYCAIAAACj7m6NAAEAAElEQVR4nOz9eZgcVZ3v/X9V1b16p6enZ2E2kZ2ECWQXlB0BEVBNQFAx3l4QRBAdxXGQhQWFxM1wVhAX1HcE1MUBQZCdQXbBKsIsc2dkJmZ6Z3Z7p7q2q7q9fn9UjP1Vb6qT1VX9V7fr5nM6ep0nq6qT3f6+7/3e5z1X3eV4l8m+fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPny5cuXL1++fPn/+v8B8v7u+VQ0bqQAAAABJRU5ErkJggg==" alt="Happy April Fool" />
-      <div class="popup-caption">🤡 Happy April Fool, boss. You really typed your name and trusted the scanner 😄</div>
+      <div id="popupText" class="popup-caption"></div>
     </div>
   </div>
 
@@ -210,6 +210,7 @@
     const result = document.getElementById('result');
     const aprilPopup = document.getElementById('aprilPopup');
     const closePopup = document.getElementById('closePopup');
+    const popupText = document.getElementById('popupText');
 
     const messages = [
       (name) => `🚨 ${name}, we detected your data in 17 underground sources… including your friend's WhatsApp gossip group.`,
@@ -260,6 +261,7 @@
         🤡 Surprise… Happy April Fool 😄
       `;
 
+      popupText.innerHTML = `🤡 ${name}, you’ve been April fooled by Phani Kumar 😄`;
       aprilPopup.classList.add('show');
     });
 
